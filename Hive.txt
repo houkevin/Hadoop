@@ -1,0 +1,9 @@
+create view if not exists avgRatings as
+select movieID, avg(rating) as avgRating, count(movieID) as ratingCount
+from ratings
+group by movieID
+order by avgRating desc;
+
+select n.title, avgRating
+from avgRatings t join names n on t.movieID = n.movieID
+where ratingCount > 10;
